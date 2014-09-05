@@ -14,7 +14,7 @@ parties =[
 	{"name":"Alliance","logo":"http://www.elections.org.nz/sites/default/files/styles/party_logo/public/images/ALL_0.jpg?itok=ntLfnIi1", minor: true},
 	{"name":"Democrats for Social Credit","logo":"http://www.elections.org.nz/sites/default/files/styles/party_logo/public/images/Democrats-for-Social-Credit.jpg?itok=wbiUOtlX", minor: true},
 	{"name":"ALCP","logo":"http://www.elections.org.nz/sites/default/files/styles/party_logo/public/images/ALCP.jpg?itok=phD3jmVe", minor: true},
-	{"name":"Māori Party","logo":"http://www.elections.org.nz/sites/default/files/styles/party_logo/public/images/Maori.jpg?itok=bOr7mhAx", minor: true},
+	{"name":"Māori Party","logo":"http://www.elections.org.nz/sites/default/files/styles/party_logo/public/images/Maori.jpg?itok=bOr7mhAx", hex: '#EF4A42'},
 	{"name":"Conservative","logo":"http://www.elections.org.nz/sites/default/files/styles/party_logo/public/images/conservative.jpg?itok=MKCQvZ_M", minor: true, hex: '#00AEEF'},
 	{"name":"Focus NZ","logo":"http://www.elections.org.nz/sites/default/files/styles/party_logo/public/parties/logos/focus_nz_jan_2014.jpg?itok=_SCH53D_", minor: true},
 	{"name":"1Law4All","logo":"http://www.elections.org.nz/sites/default/files/styles/party_logo/public/parties/logos/onelaw4all_high_res.jpg?itok=fBVNgXbc", minor: true},
@@ -30,14 +30,52 @@ controllers.controller('HouseCtrl', [
 		$scope.recalculate = function() {
 			var seats = sl($scope.parties, { seats: 120 });
 
+			$scope.calculated = true;
+
 			seats.forEach(function(s, i) {
 				$scope.parties[i].allocated = s.allocated;
 			});
 		};
 
-		$scope.predicate = "-allocated";
+		$scope.load = function() {
+			var p = $scope.parties;
 
-		$scope.recalculate();
+			// green
+			p[0].votes = 247372;
+			p[0].electorates = 0;
+
+			// labour
+			p[2].votes = 614937;
+			p[2].electorates = 22;
+
+			// national
+			p[3].votes = 1058636;
+			p[3].electorates = 42;
+
+			// nz first
+			p[4].votes = 147544;
+			p[4].electorates = 0;
+
+			// act
+			p[5].votes = 23889;
+			p[5].electorates = 1;
+
+			// uf
+			p[6].votes = 13443;
+			p[6].electorates = 1;
+
+			// maori
+			p[10].votes = 31982;
+			p[10].electorates = 3;
+
+			// mana
+			p[1].votes = 24168;
+			p[1].electorates = 1;
+
+			$scope.recalculate();
+		};
+
+		$scope.predicate = "-allocated";
 	}
 ]);
 

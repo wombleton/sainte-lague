@@ -1,6 +1,9 @@
 .row
   .col-md-12
     h1 Makeup of the House
+    p(ng-hide="calculated") 
+      | Enter some values below to get started 
+      button.btn.btn-default.btn-xs(ng-click="load()") Load 2011 Results
     .party(ng-repeat="party in parties | orderBy:predicate")
       .seat(style="background-color: {{party.hex || '#888' }}" ng-repeat="i in [] | range:party.allocated")
 table.table.table-striped
@@ -15,7 +18,7 @@ table.table.table-striped
       th Votes
       th Electorates
   tbody
-    tr(ng-repeat="party in parties | filter: {minor:'!true'} | orderBy: name")
+    tr(ng-repeat="party in parties | filter: {minor:'!true'} | orderBy:'name'")
       td {{party.name}}
       td
         input(ng-model="party.votes" ng-change="recalculate()" ng-value="0" min="0" type="number")
