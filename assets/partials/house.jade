@@ -1,0 +1,24 @@
+.row
+  .col-md-12
+    h1 Makeup of the House
+    .party(ng-repeat="party in parties | orderBy:predicate")
+      .seat(style="background-color: {{party.hex || '#888' }}" ng-repeat="i in [] | range:party.allocated")
+table.table.table-striped
+  colgroup
+    col(span="2")
+    col(span="1")
+    col(span="1")
+    col(span="1")
+  thead
+    tr
+      th Name
+      th Votes
+      th Electorates
+  tbody
+    tr(ng-repeat="party in parties | filter: {minor:'!true'} | orderBy: name")
+      td {{party.name}}
+      td
+        input(ng-model="party.votes" ng-change="recalculate()" ng-value="0" min="0" type="number")
+      td
+        input(ng-model="party.electorates" ng-change="recalculate()" ng-value="0" max="60" min="0" type="number")
+      td {{party.allocated}}
